@@ -1,60 +1,58 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VisualMath</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VisualiseMath.QuadraticEquations - Quadratic Visualizer</title>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      background: #0f172a;
+      color: white;
       font-family: Arial, sans-serif;
     }
 
-    body {
-      background: #0f172a;
-      color: white;
-      min-height: 100vh;
-      padding: 40px;
-    }
-
     .container {
+      width: 90%;
       max-width: 1000px;
       margin: auto;
+      padding: 40px 20px;
     }
 
     h1 {
       font-size: 3rem;
+      text-align: center;
       margin-bottom: 10px;
     }
 
-    p {
+    .subtitle {
+      text-align: center;
       color: #cbd5e1;
-      margin-bottom: 30px;
-      line-height: 1.6;
+      margin-bottom: 40px;
     }
 
     .card {
       background: #1e293b;
+      padding: 30px;
       border-radius: 20px;
-      padding: 25px;
-      margin-top: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    .inputs {
+      display: flex;
       gap: 20px;
-      margin-top: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
     }
 
-    .slider-box {
-      background: #334155;
-      padding: 15px;
-      border-radius: 15px;
+    .input-box {
+      flex: 1;
+      min-width: 150px;
     }
 
     label {
@@ -63,128 +61,148 @@
       font-size: 1rem;
     }
 
-    input[type="range"] {
+    input {
       width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      background: #334155;
+      color: white;
     }
 
-    .value {
-      margin-top: 8px;
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #38bdf8;
+      color: black;
       font-weight: bold;
+    }
+
+    .equation {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 25px 0;
       color: #38bdf8;
     }
 
     canvas {
       background: white;
       border-radius: 15px;
-      margin-top: 30px;
       padding: 10px;
     }
 
     .footer {
-      margin-top: 40px;
       text-align: center;
+      margin-top: 40px;
       color: #94a3b8;
-      font-size: 0.9rem;
-    }
-
-    .equation {
-      margin-top: 15px;
-      font-size: 1.3rem;
-      color: #38bdf8;
     }
   </style>
+
 </head>
+
 <body>
+
   <div class="container">
-    <h1>VisualMath</h1>
-    <p>
-      Interactive mathematics visualizations for students preparing for JEE, Olympiads, and competitive exams.
-      Explore how changing values affects graphs in real time.
-    </p>
 
-    <div class="card">
-      <h2>Quadratic Function Visualizer</h2>
-      <p>
-        Adjust the sliders to see how the graph changes for the quadratic equation:
-      </p>
+```
+<h1>VisualiseMath.QuadraticEquations</h1>
 
-      <div class="equation" id="equation">
-        y = 1x² + 0x + 0
-      </div>
+<div class="subtitle">
+  Interactive Quadratic Equation Visualizer
+</div>
 
-      <div class="controls">
-        <div class="slider-box">
-          <label for="aSlider">Value of a</label>
-          <input type="range" min="-5" max="5" step="1" value="1" id="aSlider">
-          <div class="value" id="aValue">1</div>
-        </div>
+<div class="card">
 
-        <div class="slider-box">
-          <label for="bSlider">Value of b</label>
-          <input type="range" min="-10" max="10" step="1" value="0" id="bSlider">
-          <div class="value" id="bValue">0</div>
-        </div>
+  <div class="inputs">
 
-        <div class="slider-box">
-          <label for="cSlider">Value of c</label>
-          <input type="range" min="-10" max="10" step="1" value="0" id="cSlider">
-          <div class="value" id="cValue">0</div>
-        </div>
-      </div>
-
-      <canvas id="graph"></canvas>
+    <div class="input-box">
+      <label>Value of a</label>
+      <input type="number" id="aInput" value="1" step="any">
     </div>
 
-    <div class="footer">
-      Built by Misri Shah • VisualMath Version 1
+    <div class="input-box">
+      <label>Value of b</label>
+      <input type="number" id="bInput" value="0" step="any">
     </div>
+
+    <div class="input-box">
+      <label>Value of c</label>
+      <input type="number" id="cInput" value="0" step="any">
+    </div>
+
+  </div>
+
+  <button onclick="drawGraph()">
+    Plot Graph
+  </button>
+
+  <div class="equation" id="equation">
+    y = 1x² + 0x + 0
+  </div>
+
+  <canvas id="graph"></canvas>
+
+</div>
+
+<div class="footer">
+  Built by Misri Shah • VisualiseMath.QuadraticEquations
+</div>
+```
+
   </div>
 
   <script>
-    const aSlider = document.getElementById('aSlider');
-    const bSlider = document.getElementById('bSlider');
-    const cSlider = document.getElementById('cSlider');
-
-    const aValue = document.getElementById('aValue');
-    const bValue = document.getElementById('bValue');
-    const cValue = document.getElementById('cValue');
-
-    const equation = document.getElementById('equation');
 
     const ctx = document.getElementById('graph').getContext('2d');
 
     let chart;
 
-    function generateData(a, b, c) {
-      const points = [];
+    function generatePoints(a, b, c) {
 
-      for (let x = -10; x <= 10; x += 0.2) {
-        const y = a * x * x + b * x + c;
-        points.push({ x, y });
+      let points = [];
+
+      for(let x = -20; x <= 20; x += 0.1) {
+
+        let y = a*x*x + b*x + c;
+
+        points.push({
+          x: x,
+          y: y
+        });
+
       }
 
       return points;
     }
 
     function drawGraph() {
-      const a = parseInt(aSlider.value);
-      const b = parseInt(bSlider.value);
-      const c = parseInt(cSlider.value);
 
-      aValue.textContent = a;
-      bValue.textContent = b;
-      cValue.textContent = c;
+      let a = parseFloat(document.getElementById('aInput').value);
+      let b = parseFloat(document.getElementById('bInput').value);
+      let c = parseFloat(document.getElementById('cInput').value);
 
-      equation.textContent = `y = ${a}x² + ${b}x + ${c}`;
+      if(isNaN(a)) a = 0;
+      if(isNaN(b)) b = 0;
+      if(isNaN(c)) c = 0;
 
-      const data = generateData(a, b, c);
+      document.getElementById('equation').innerHTML =
+        `y = ${a}x² + ${b}x + ${c}`;
 
-      if (chart) {
+      const data = generatePoints(a,b,c);
+
+      if(chart) {
         chart.destroy();
       }
 
       chart = new Chart(ctx, {
+
         type: 'scatter',
+
         data: {
           datasets: [{
             label: 'Quadratic Graph',
@@ -193,37 +211,41 @@
             tension: 0.2
           }]
         },
+
         options: {
+
           responsive: true,
+
           scales: {
+
             x: {
               type: 'linear',
-              position: 'center',
-              min: -10,
-              max: 10,
+              min: -20,
+              max: 20,
               title: {
                 display: true,
                 text: 'x-axis'
               }
             },
+
             y: {
-              min: -50,
-              max: 50,
               title: {
                 display: true,
                 text: 'y-axis'
               }
             }
+
           }
+
         }
+
       });
+
     }
 
-    aSlider.addEventListener('input', drawGraph);
-    bSlider.addEventListener('input', drawGraph);
-    cSlider.addEventListener('input', drawGraph);
-
     drawGraph();
+
   </script>
+
 </body>
 </html>
